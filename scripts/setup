@@ -1,0 +1,9 @@
+setup_db() {
+    mysql --execute="CREATE USER IF NOT EXISTS 'laravel'@'localhost';"
+    mysql --execute="CREATE DATABASE IF NOT EXISTS laravel;"
+    mysql --execute="GRANT ALL PRIVILEGES ON *.* TO 'laravel'@'localhost';"
+}
+
+setup_db
+
+php artisan migrate
