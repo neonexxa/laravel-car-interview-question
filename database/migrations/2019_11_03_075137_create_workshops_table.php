@@ -17,9 +17,11 @@ class CreateWorkshopsTable extends Migration
             $table->bigIncrements('id');
 
             $table->string('name');
-            $table->string('contact_number');
+            $table->string('phone')->unique();
             $table->double('latitude');
             $table->double('longitude');
+            $table->string('opening_time');
+            $table->string('closing_time');
 
             $table->timestamps();
             $table->softDeletes();
