@@ -22,3 +22,10 @@ Create 3 endpoints that allowed the admin staff to:
   - The endpoint should be able to recommend workshops based on
     1. Availability
     2. Location
+
+## Setup
+- Please refer to https://laravel.com/docs/6.x/installation on how to set it up and running in you machine
+
+- Once you have the environment up, run `scripts/setup` to setup the database and run the migration
+
+- In order to seed the data, please run `php artisan db:seed`
