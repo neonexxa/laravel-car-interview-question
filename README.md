@@ -29,3 +29,17 @@ Create 3 endpoints that allowed the admin staff to:
 - Once you have the environment up, run `scripts/setup` to setup the database and run the migration
 
 - In order to seed the data, please run `php artisan db:seed`
+
+## Send the answer back to us
+
+1. Checkout and work on your branch
+
+2. Commit as you progress
+
+3. Once you are done, generate the patch file by using
+
+```
+git format-patch develop
+```
+
+4. Send the patch file back to us
