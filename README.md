@@ -12,16 +12,21 @@ The staff at the workshop will need to have access to the appointments on daily 
 
 Create 3 endpoints that allowed the admin staff to:
 
-1. List down all the appointments for a particular workshop
+1. List down all the appointments for all workshops with 
 
 2.  Schedule an appointment based on client's request
+
   - It should be able to create a new appointment based on given information
-  - Other than that, it should also detect the available of the workshop and prevent appointments with overlapped times being created.
+
+  - Other than that, it should also detect the available of the workshop and prevent appointments with same time being created twice.
 
 3. Recommend the workshops based on the availability and the locations
+
   - The endpoint should be able to recommend workshops based on
-    1. Availability
-    2. Location
+
+    1. Availability (Filter the time that the workshop is not available)
+
+    2. Location (Show the workshop that is closest)
 
 ## Setup
 - Please refer to https://laravel.com/docs/6.x/installation on how to set it up and running in you machine
