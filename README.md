@@ -26,7 +26,7 @@ Create 3 endpoints that allowed the admin staff to:
 
     1. Availability (Filter the time that the workshop is not available)
 
-    2. Location (Show the workshop that is closest)
+    2. Location (Sort the workshop based on the distance)
 
 ## Setup
 - Please refer to https://laravel.com/docs/6.x/installation on how to set it up and running in you machine
