@@ -28,6 +28,13 @@ Create 3 endpoints that allowed the admin staff to:
 
     2. Location (Sort the workshop based on the distance)
 
+## Notes
+- Feel free include any assumptions or notes that you have
+
+- Please include any instructions or guides that you have in order for us to test the work that you have done
+
+- We liked tests, include tests in your code will be advantageous
+
 ## Setup
 - Please refer to https://laravel.com/docs/6.x/installation on how to set it up and running in you machine
 
