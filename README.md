@@ -10,11 +10,11 @@ The staff at the workshop will need to have access to the appointments on daily 
 
 ## Your task
 
-Create 3 endpoints that allowed the admin staff to:
+Create endpoints that allows the admin staff to:
 
-1. List down all the appointments for all workshops with ability to query by each workshop
+1. List down all the appointments for all workshops with ability to filter by each workshop
 
-2.  Schedule an appointment based on client's request
+2. Schedule an appointment based on client's request
 
   - It should be able to create a new appointment based on given information
 
