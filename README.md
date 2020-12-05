@@ -1,8 +1,8 @@
 # Laravel Car Interview Question
 
-The Car Solutions own multiple workshops located at multiple locations with different working hours.
+The Car Solutions owns multiple workshops located at different locations with different working hours.
 
-The company is currently building a platform for the it's admin staff in order to schedule booking appointments with different workshops.
+The company is currently building a platform for its admin staff in order to schedule booking appointments with different workshops.
 
 Whenever a client called in to schedule for an appointment. The admin staff needs to be able to check the availability of the workshops, make recommendations and also create a new appointment.
 
@@ -18,25 +18,27 @@ Create endpoints that allows the admin staff to:
 
   - It should be able to create a new appointment based on given information
 
-  - Other than that, it should also detect the available of the workshop and prevent appointments with same time being created twice.
+  - Other than that, it should also detect the availablility of the workshop and prevent appointments with overlapping time from being created.
 
 3. Recommend the workshops based on the availability and the locations
 
   - The endpoint should be able to recommend workshops based on
 
-    1. Availability (Filter the time that the workshop is not available)
+    1. Availability (Show workshop that do not have appointment during the provided time)
 
     2. Location (Sort the workshop based on the distance)
 
 ## Notes
+
 - Feel free include any assumptions or notes that you have
 
 - Please include any instructions or guides that you have in order for us to test the work that you have done
 
-- We liked tests, include tests in your code will be advantageous
+- We like tests, include tests in your code will be advantageous
 
 ## Setup
-- Please refer to https://laravel.com/docs/6.x/installation on how to set it up and running in you machine
+
+- Please refer to https://laravel.com/docs/8.x/installation on how to set it up and running in you machine
 
 - Once you have the environment up, run `scripts/setup` to setup the database and run the migration
 
