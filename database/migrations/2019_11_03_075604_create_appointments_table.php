@@ -20,8 +20,8 @@ class CreateAppointmentsTable extends Migration
             $table->foreign('car_id')->references('id')->on('cars')->onDelete('cascade');
             $table->unsignedBigInteger('workshop_id');
             $table->foreign('workshop_id')->references('id')->on('workshops')->onDelete('cascade');
-            $table->string('start_time');
-            $table->string('end_time');
+            $table->dateTime('start_time');
+            $table->dateTime('end_time');
 
             $table->timestamps();
         });

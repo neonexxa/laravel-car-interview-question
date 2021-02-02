@@ -12,7 +12,7 @@ The staff at the workshop will need to have access to the appointments on daily 
 
 Create endpoints that allows the admin staff to:
 
-1. List down all the appointments for all workshops with ability to filter by each workshop
+1. List down all the appointments with ability to filter by each workshop based on provided workshop_id
 
 2. Schedule an appointment based on client's request
 
