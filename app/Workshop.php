@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Appointment;
+use App\Services\SortLocationService;
 use Illuminate\Database\Eloquent\Model;
 
 class Workshop extends Model
@@ -12,4 +13,5 @@ class Workshop extends Model
     {
         return $this->hasMany(Appointment::class);
     }
+    
 }
