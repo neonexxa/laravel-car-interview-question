@@ -27,8 +27,8 @@ class WorkshopsTableSeeder extends Seeder
                     'phone' => $record['phone'],
                     'latitude' => $record['latitude'],
                     'longitude' => $record['longitude'],
-                    'opening_time' => $record['opening_time'],
-                    'closing_time' => $record['closing_time'],
+                    'opening_time' => (int)str_replace(":","",$record['opening_time']),
+                    'closing_time' => (int)str_replace(":","",$record['closing_time']),
                 ]
             );
         }

@@ -20,8 +20,8 @@ class CreateWorkshopsTable extends Migration
             $table->string('phone')->unique();
             $table->double('latitude');
             $table->double('longitude');
-            $table->dateTime('opening_time');
-            $table->dateTime('closing_time');
+            $table->integer('opening_time');
+            $table->integer('closing_time');
 
             $table->timestamps();
             $table->softDeletes();
