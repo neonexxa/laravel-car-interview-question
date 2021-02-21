@@ -12,37 +12,49 @@ class WorkshopController extends Controller
 {
     public function index(Request $request)
     {
-        $query = Workshop::where('workshops.opening_time', '<=', $request->fromTime )
-            ->where('workshops.closing_time', '>=', $request->toTime );
         if (!(empty($request->is_available))) {
-            $query->whereHas('appointments', function($qr) use($request){
-                $qr->where(function ($qr2) use ($request) {
-                    $qr2->where('start_time', '>', $request->fromTime);
-                    $qr2->where('end_time', '<', $request->toTime);
-                })
-                ->orWhere(function ($qr2) use ($request) {
-                    $qr2->where('start_time', '<', $request->fromTime);
-                    $qr2->where('end_time', '>', $request->toTime);
-                })
-                ->orWhere(function ($qr2) use ($request) {
-                    $qr2->where('start_time', '<', $request->fromTime);
-                    $qr2->where('end_time', '<', $request->toTime);
-                })
-                ->orWhere(function ($qr2) use ($request) {
-                    $qr2->where('start_time', '>', $request->fromTime);
-                    $qr2->where('end_time', '>', $request->toTime);
-                });
-            });
+            $query  = Workshop::where('workshops.opening_time', '<=', $request->fromTime )
+                ->where('workshops.closing_time', '>=', $request->toTime )
+                ->whereHas('appointments', function($qr) use($request){
+                    $qr->where(function ($qr2) use ($request) {
+                        $qr2->where('start_time', '=', $request->fromTime);
+                    })
+                    ->orWhere(function ($qr2) use ($request) {
+                        $qr2->where('end_time', '=', $request->toTime);
+                    })
+                    ->orWhere(function ($qr2) use ($request) {
+                        $qr2->where('start_time', '<', $request->fromTime);
+                        $qr2->where('end_time', '>', $request->fromTime);
+                    })
+                    ->orWhere(function ($qr2) use ($request) {
+                        $qr2->where('start_time', '<', $request->toTime);
+                        $qr2->where('end_time', '>', $request->toTime);
+                    })
+                    ->orWhere(function ($qr2) use ($request) {
+                        $qr2->where('start_time', '<', $request->fromTime);
+                        $qr2->where('end_time', '>', $request->toTime);
+                    })
+                    ->orWhere(function ($qr2) use ($request) {
+                        $qr2->where('start_time', '>', $request->fromTime);
+                        $qr2->where('end_time', '<', $request->toTime);
+                    });
+                }, '<', 1);
+            $wqs = $query->get();
+        }else{
+            $wqs = Workshop::all();
         }
-        $wqs = $query->get();
-        foreach ($wqs as &$eachdata) {
-            $eachdata->distance = SortLocationService::theGreatCircleDistance(
-                $request->latitude,
-                $request->longitude,
-                $eachdata->latitude,
-                $eachdata->longitude);
+        
+        if (!(empty($request->sortType))) {    
+            foreach ($wqs as &$eachdata) {
+                $eachdata->distance = SortLocationService::theGreatCircleDistance(
+                    $request->latitude,
+                    $request->longitude,
+                    $eachdata->latitude,
+                    $eachdata->longitude);
+            }
+            $wqs = ($request->sortType == "nearest") ? $wqs->sortBy('distance') : $wqs->sortByDesc('distance');
         }
-        $data = $wqs->sortBy('distance');
+        $data = $wqs;
         return [
             'data' => $data->values()
         ];
