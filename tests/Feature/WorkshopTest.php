@@ -44,9 +44,9 @@ class WorkshopTest extends TestCase
             'end_time' => $params['end_time'],
         ];
     }
-    private function getReqAvailableWorkshop($sort,$fromTime,$toTime) 
+    private function getReqAvailableWorkshop($sort,$start_time,$end_time) 
     {
-        return $this->get("/api/workshops?sortType=$sort&is_available=1&fromTime=$fromTime&toTime=$toTime&latitude=3.221090&longitude=101.724741");
+        return $this->get("/api/workshops?sortType=$sort&is_available=1&start_time=$start_time&end_time=$end_time&latitude=3.221090&longitude=101.724741");
     }
     public function testWrokshopGetAll()
     {

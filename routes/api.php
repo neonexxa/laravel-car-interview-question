@@ -14,4 +14,5 @@ use Illuminate\Http\Request;
 */
 
 Route::get('/appointments', 'AppointmentController@index');
+Route::post('/appointments', 'AppointmentController@store');
 Route::get('/workshops', 'WorkshopController@index');

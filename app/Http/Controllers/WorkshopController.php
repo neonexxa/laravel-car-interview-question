@@ -13,48 +13,22 @@ class WorkshopController extends Controller
     public function index(Request $request)
     {
         if (!(empty($request->is_available))) {
-            $query  = Workshop::where('workshops.opening_time', '<=', $request->fromTime )
-                ->where('workshops.closing_time', '>=', $request->toTime )
-                ->whereHas('appointments', function($qr) use($request){
-                    $qr->where(function ($qr2) use ($request) {
-                        $qr2->where('start_time', '=', $request->fromTime);
-                    })
-                    ->orWhere(function ($qr2) use ($request) {
-                        $qr2->where('end_time', '=', $request->toTime);
-                    })
-                    ->orWhere(function ($qr2) use ($request) {
-                        $qr2->where('start_time', '<', $request->fromTime);
-                        $qr2->where('end_time', '>', $request->fromTime);
-                    })
-                    ->orWhere(function ($qr2) use ($request) {
-                        $qr2->where('start_time', '<', $request->toTime);
-                        $qr2->where('end_time', '>', $request->toTime);
-                    })
-                    ->orWhere(function ($qr2) use ($request) {
-                        $qr2->where('start_time', '<', $request->fromTime);
-                        $qr2->where('end_time', '>', $request->toTime);
-                    })
-                    ->orWhere(function ($qr2) use ($request) {
-                        $qr2->where('start_time', '>', $request->fromTime);
-                        $qr2->where('end_time', '<', $request->toTime);
-                    });
-                }, '<', 1);
-            $wqs = $query->get();
+            $workshops = Workshop::getAvailable($request)->get();
         }else{
-            $wqs = Workshop::all();
+            $workshops = Workshop::all();
         }
         
         if (!(empty($request->sortType))) {    
-            foreach ($wqs as &$eachdata) {
+            foreach ($workshops as &$eachdata) {
                 $eachdata->distance = SortLocationService::theGreatCircleDistance(
                     $request->latitude,
                     $request->longitude,
                     $eachdata->latitude,
                     $eachdata->longitude);
             }
-            $wqs = ($request->sortType == "nearest") ? $wqs->sortBy('distance') : $wqs->sortByDesc('distance');
+            $workshops = ($request->sortType == "nearest") ? $workshops->sortBy('distance') : $workshops->sortByDesc('distance');
         }
-        $data = $wqs;
+        $data = $workshops;
         return [
             'data' => $data->values()
         ];

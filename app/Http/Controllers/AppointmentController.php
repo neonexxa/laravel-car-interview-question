@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Appointment;
+use App\Workshop;
 
 class AppointmentController extends Controller
 {
@@ -26,6 +27,22 @@ class AppointmentController extends Controller
 
     public function store(Request $request)
     {
-        
+        if(Workshop::getAvailable($request)->count()){
+            $data = Appointment::create([
+                'workshop_id' => $request->workshop_id,
+                'car_id' => $request->car_id,
+                'start_time' => $request->start_time,
+                'end_time' => $request->end_time,
+            ]);
+        }else{
+            $data = [
+                'error' => 'no_available_slot',
+                'message' => 'Fail to create appointment' ,
+            ];
+        }
+
+        return [
+            'data' => $data
+        ];
     }
 }
