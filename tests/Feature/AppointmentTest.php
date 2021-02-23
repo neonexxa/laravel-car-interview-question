@@ -49,7 +49,12 @@ class AppointmentTest extends TestCase
             'end_time' => $params['end_time'] ?? 1000,
         ];
     }
-
+    private function sampleAppointment($arr)
+    {
+        foreach($arr as $time){
+            factory(\App\Appointment::class)->create($this->getAppointmentParam(['start_time'=> $time[0],'end_time'=>$time[1]]));
+        }
+    }
     public function testAppointmentGetAll()
     {
         foreach (range(1,50) as $v) {
@@ -93,5 +98,27 @@ class AppointmentTest extends TestCase
         $response->assertStatus(200);
         $data = $response['data'];
         $this->assertEquals(count($data), 40);
+    }
+
+    public function testSetNewAppointmentFail()
+    {
+        // occupied 9.30-10.30, 12.30-2.00, 4.00-6.00
+        $this->sampleAppointment([[930,1030], [1230,1400], [1600,1800]]);
+
+        $response = $this->post('/api/appointments', $this->getAppointmentParam(['start_time'=> 900,'end_time' => 1000]));
+        $response->assertStatus(401);
+        $this->assertEquals($response['error'], 'no_available_slot');
+    }
+    public function testSetNewAppointmentSuccess()
+    {
+        // occupied 9.30-10.30, 12.30-2.00, 4.00-6.00
+        $this->sampleAppointment([[930,1030], [1230,1400], [1600,1800]]);
+
+        $response = $this->post('/api/appointments', $this->getAppointmentParam(['start_time'=> 1030,'end_time' => 1100]));
+        $response->assertStatus(200);
+        $this->assertEquals($response['data']['workshop_id'], $this->workshop->id);
+        $this->assertEquals($response['data']['car_id'], $this->car->id);
+        $this->assertEquals($response['data']['start_time'], 1030);
+        $this->assertEquals($response['data']['end_time'], 1100);
     }
 }

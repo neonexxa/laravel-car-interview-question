@@ -28,21 +28,21 @@ class AppointmentController extends Controller
     public function store(Request $request)
     {
         if(Workshop::getAvailable($request)->count()){
-            $data = Appointment::create([
-                'workshop_id' => $request->workshop_id,
-                'car_id' => $request->car_id,
-                'start_time' => $request->start_time,
-                'end_time' => $request->end_time,
-            ]);
+            $appointment = new Appointment;
+            $appointment->workshop_id   = $request->workshop_id;
+            $appointment->car_id        = $request->car_id;
+            $appointment->start_time    = $request->start_time;
+            $appointment->end_time      = $request->end_time;
+            $appointment->save();
         }else{
-            $data = [
+            return response()->json([
                 'error' => 'no_available_slot',
                 'message' => 'Fail to create appointment' ,
-            ];
+            ], 401);
         }
 
         return [
-            'data' => $data
+            'data' => $appointment
         ];
     }
 }
